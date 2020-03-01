@@ -7,21 +7,10 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  Text,
-} from 'react-native';
+import Screen from '~/screens';
 
 const App: () => React$Node = () => {
-  return (
-    <>
-      <StatusBar barStyle="dark-content"/>
-      <SafeAreaView>
-        <Text>Hello World!</Text>
-      </SafeAreaView>
-    </>
-  );
+  return <Screen />;
 };
 
 export default App;
