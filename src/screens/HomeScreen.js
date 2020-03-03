@@ -1,8 +1,13 @@
 import React from 'react';
 import styled from "styled-components";
 
-import CenterView from '~/components/view/CenterView';
-import NextPageButton from "~/components/button/NextPageButton";
+import RoundButton from "~/components/button/RoundButton";
+
+const CenterView = styled.View`
+  flex: 1;
+  alignItems: center;
+  justifyContent: center;
+`;
 
 const ButtonContainer = styled.View`
   width: 80%;
@@ -14,13 +19,13 @@ const HomeScreen = ( { navigation } ) => {
   return (
     <CenterView>
       <ButtonContainer>
-        <NextPageButton
+        <RoundButton
           text="To Do List"
           backgroundColor="#F5003B"
           onPress={() => navigation.navigate('ToDoList')} />
       </ButtonContainer>
       <ButtonContainer>
-        <NextPageButton
+        <RoundButton
           text="Movie"
           backgroundColor="#F5003B"
           onPress={() => navigation.navigate('Movie')} />

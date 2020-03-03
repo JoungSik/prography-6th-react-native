@@ -13,7 +13,7 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-const NextPageButton = ( { text, onPress, backgroundColor } ) => {
+const RoundButton = ( { text, onPress, backgroundColor } ) => {
   return (
     <ButtonContainer onPress={onPress} backgroundColor={backgroundColor}>
       <ButtonText>{text}</ButtonText>
@@ -21,4 +21,4 @@ const NextPageButton = ( { text, onPress, backgroundColor } ) => {
   )
 };
 
-export default NextPageButton;
+export default RoundButton;

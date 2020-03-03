@@ -1,11 +1,10 @@
 import React from 'react';
-
-import CenterView from '~/components/view/CenterView';
+import { View } from "react-native";
 
 const MovieScreen = ( { navigation } ) => {
   return (
-    <CenterView>
-    </CenterView>
+    <View>
+    </View>
   );
 };
 
