@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { todoComplete, todoDelete, todoEdit, todoSave } from "~/redux/modules/ToDoList";
 
 import ToDoReady from "./ToDoReady";
 import ToDoEdit from "./ToDoEdit";
@@ -12,7 +14,26 @@ const Container = styled.View`
   flex-direction: row;
 `;
 
-const ToDo = ( { todo, onEdit, onChange, onDelete, onComplete } ) => {
+const ToDo = ( { todo } ) => {
+
+  const dispatch = useDispatch();
+
+  const onEdit = () => {
+    dispatch(todoEdit({ id: todo.id }))
+  };
+
+  const onSave = ( text ) => {
+    dispatch(todoSave({ id: todo.id, text: text }))
+  };
+
+  const onDelete = () => {
+    dispatch(todoDelete({ id: todo.id }))
+  };
+
+  const onComplete = () => {
+    dispatch(todoComplete({ id: todo.id }))
+  };
+
   return (
     <Container>
       {
@@ -26,7 +47,7 @@ const ToDo = ( { todo, onEdit, onChange, onDelete, onComplete } ) => {
         todo.status === "edit" && <ToDoEdit
           text={todo.text}
           onEdit={onEdit}
-          onChange={onChange} />
+          onSave={onSave} />
       }
       {
         todo.status === "complete" &&

@@ -14,7 +14,7 @@ const EditTextInput = styled.TextInput`
   padding-right: 20px;
 `;
 
-const ToDoEdit = ( { text, onEdit, onChange } ) => {
+const ToDoEdit = ( { text, onSave } ) => {
 
   const [value, setValue] = useState(text);
 
@@ -28,7 +28,7 @@ const ToDoEdit = ( { text, onEdit, onChange } ) => {
       <NoLineButton
         text="완료"
         textColor="black"
-        onPress={onEdit} />
+        onPress={() => onSave(value)} />
     </>
   )
 };

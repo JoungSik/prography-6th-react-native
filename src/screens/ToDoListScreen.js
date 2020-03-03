@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
 import { ScrollView } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
+import ToDo from "~/components/item/ToDo";
 import SquareButton from "~/components/button/SquareButton";
-import { useSelector } from "react-redux";
-import ToDo from "../components/item/ToDo";
+import { todoAdd } from "../redux/modules/ToDoList";
 
 const ToDoListView = styled.View`
   margin-top: 40px;
@@ -30,72 +31,14 @@ const EditTextInput = styled.TextInput`
 
 const ToDoListScreen = ( { navigation } ) => {
 
+  const dispatch = useDispatch();
   const [memo, setMemo] = useState("");
-  const [toDoList, setToDoList] = useState([
-    {
-      id: 0,
-      status: "ready",
-      text: "준비",
-    },
-    {
-      id: 1,
-      status: "edit",
-      text: "수정",
-    },
-    {
-      id: 2,
-      status: "complete",
-      text: "완료",
-    },
-  ]);
+  const toDoList = useSelector(store => store.todolist.data);
 
   const onAdd = () => {
-    setToDoList(toDoList.concat({
-      id: toDoList.length,
-      status: "ready",
-      text: memo,
-    }));
-
+    dispatch(todoAdd({ text: memo }));
     setMemo("");
   };
-
-  const onEdit = id => {
-    setToDoList(
-      toDoList.map(todo =>
-        todo.id === id ?
-          {
-            ...todo,
-            status: todo.status === "edit" ? "ready" : "edit",
-          } : todo,
-      ));
-  };
-
-  // const onChange = ( id, text ) => {
-  //   setToDoList(
-  //     toDoList.map(todo =>
-  //       todo.id === id ?
-  //         {
-  //           ...todo,
-  //           text: text,
-  //         } : todo,
-  //     ));
-  // };
-
-  const onDelete = id => {
-    setToDoList(toDoList.filter(todo => todo.id !== id))
-  };
-
-  const onComplete = id => {
-    setToDoList(
-      toDoList.map(todo =>
-        todo.id === id ?
-          {
-            ...todo,
-            status: todo.status === "complete" ? "ready" : "complete",
-          } : todo,
-      ));
-  };
-
 
   return (
     <ToDoListView>
@@ -113,13 +56,7 @@ const ToDoListScreen = ( { navigation } ) => {
       </EditTextLayout>
       <ScrollView>
         {
-          toDoList.map(todo =>
-            <ToDo
-              todo={todo}
-              onEdit={() => onEdit(todo.id)}
-              onChange={() => onChange()}
-              onDelete={() => onDelete(todo.id)}
-              onComplete={() => onComplete(todo.id)} />)
+          toDoList.map(todo => <ToDo todo={todo} />)
         }
       </ScrollView>
     </ToDoListView>
