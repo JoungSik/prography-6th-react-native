@@ -53,35 +53,19 @@ export default handleActions(
       });
     }),
     [TODO_EDIT]: ( state, action ) => produce(state, draft => {
-      draft.data = draft.data.map(todo =>
-        todo.id === action.payload.id ?
-          {
-            ...todo,
-            status: "edit",
-          } : todo,
-      );
+      draft.data.find(todo => todo.id === action.payload.id).status = "edit";
     }),
     [TODO_SAVE]: ( state, action ) => produce(state, draft => {
-      draft.data = draft.data.map(todo =>
-        todo.id === action.payload.id ?
-          {
-            ...todo,
-            status: "ready",
-            text: action.payload.text,
-          } : todo,
-      );
+      const todo = draft.data.find(todo => todo.id === action.payload.id);
+      todo.status = "ready";
+      todo.text = action.payload.text;
     }),
     [TODO_DELETE]: ( state, action ) => produce(state, draft => {
       draft.data = draft.data.filter(todo => todo.id !== action.payload.id);
     }),
     [TODO_COMPLETE]: ( state, action ) => produce(state, draft => {
-      draft.data = draft.data.map(todo =>
-        todo.id === action.payload.id ?
-          {
-            ...todo,
-            status: todo.status === "complete" ? "ready" : "complete",
-          } : todo,
-      );
+      const todo = draft.data.find(todo => todo.id === action.payload.id);
+      todo.status = todo.status === "complete" ? "ready" : "complete";
     }),
   },
   initialState,
